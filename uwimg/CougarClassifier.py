@@ -20,7 +20,7 @@ frame_names.sort()
 
 print
 print
-print("analying video: " + video_file)
+print("analyzing video: " + video_file)
 print
 print
 
@@ -47,7 +47,7 @@ def gather_frames(start, stop):
 
     for i in range(stop - start):
         # make sure we don't go overboard
-        if i >= num_files:
+        if (i + start) >= num_files:
             break
         frames.append(load_image(frame_names[start + i]))
 
@@ -66,7 +66,9 @@ def detect_movement(frames, frame_movement, start):
     print("detecting movement in " + str(batch_size) + " frames . . .")
 
     for frame in range(len(frames) - 1):
-        flow = optical_flow_images(frames[frame], frames[frame + 1], 15, 8)
+        if (frame + start) >= num_files:
+            break
+        flow = optical_flow_images(frames[frame + 1], frames[frame], 15, 8)
         frame_sum = 0
 
         # only look at dx, dy
@@ -76,8 +78,9 @@ def detect_movement(frames, frame_movement, start):
                     # we only care about magnitude
                     frame_sum = max(frame_sum, abs(get_pixel(flow, col, row, channel)))
         free_image(flow)
-
         if frame % 100 == 0:
+            draw_flow(frames[frame], flow, 8)
+            save_image(frames[frame], "lines%s" % (frame + start))
             print(frame)
         frame_movement.append((frame_sum, frame + start))
 

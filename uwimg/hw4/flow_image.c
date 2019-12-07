@@ -141,8 +141,10 @@ image time_structure_matrix(image im, image prev, int s)
     }
 
     // TODO: calculate gradients, structure components, and smooth them
-    image Ix = convolve_image(im, make_gx_filter(), 0),
-          Iy = convolve_image(im, make_gy_filter(), 0),
+    image gx = make_gx_filter(),
+          gy = make_gy_filter(),
+          Ix = convolve_image(im, gx, 0),
+          Iy = convolve_image(im, gy, 0),
           S  = make_image(im.w, im.h, 5);
     float deltaX, deltaY, deltaT;
 
@@ -160,11 +162,20 @@ image time_structure_matrix(image im, image prev, int s)
         }
     }
 
-    if(converted){
+    if(converted) {
         free_image(im); free_image(prev);
     }
 
-    return box_filter_image(S, s);
+    free_image(gx);
+    free_image(gy);
+    free_image(Ix);
+    free_image(Iy);
+
+    image tmp = box_filter_image(S, s);
+
+    free_image(S);
+
+    return tmp;
 }
 
 // Calculate the velocity given a structure image
