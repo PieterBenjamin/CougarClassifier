@@ -1,8 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
-#include <assert.h>
-#include "../image.h"
-#include "../matrix.h"
+#include "image.h"
+#include "matrix.h"
 
 // Run an activation function on each element in a matrix,
 // modifies the matrix in place
@@ -10,37 +9,31 @@
 // ACTIVATION a: function to run
 void activate_matrix(matrix m, ACTIVATION a)
 {
-    double val;
     int i, j;
     for(i = 0; i < m.rows; ++i){
         double sum = 0;
         for(j = 0; j < m.cols; ++j){
             double x = m.data[i][j];
-            val = exp(x);
-
             if(a == LOGISTIC){
                 // TODO
-                m.data[i][j] = val/(1 + val);
+                m.data[i][j] = 1 / (1 + exp(-x));
             } else if (a == RELU){
                 // TODO
-                if(m.data[i][j] <= 0){
-                    m.data[i][j] = 0;
-                }
+                m.data[i][j] = (x > 0) ? x : 0;
             } else if (a == LRELU){
                 // TODO
-                if(m.data[i][j] <= 0){
-                    m.data[i][j] = m.data[i][j] * 0.1;
-                }
+                m.data[i][j] = x > 0 ? x : (0.1 * x);
             } else if (a == SOFTMAX){
                 // TODO
-                m.data[i][j] = val;
+                m.data[i][j] = exp(x);
             }
-            sum += val;
+            sum += m.data[i][j];
         }
-
         if (a == SOFTMAX) {
             // TODO: have to normalize by sum if we are using SOFTMAX
-            for(j = 0; j < m.cols; j++) m.data[i][j] /= sum;
+            for (j = 0; j < m.cols; ++j) {
+                m.data[i][j] /= sum;
+            }        
         }
     }
 }
@@ -57,20 +50,15 @@ void gradient_matrix(matrix m, ACTIVATION a, matrix d)
         for(j = 0; j < m.cols; ++j){
             double x = m.data[i][j];
             // TODO: multiply the correct element of d by the gradient
-            if(a == LOGISTIC){
-                d.data[i][j] = d.data[i][j]*x*(1-x);
+            if (a == LOGISTIC){
+                // TODO
+                d.data[i][j] *= x * (1 - x);
             } else if (a == RELU){
-                if(d.data[i][j] > 0){
-                    d.data[i][j] = 1*m.data[i][j];
-                }
-            } else if (a == LRELU) {
-                if(m.data[i][j] > 0){
-                    d.data[i][j] = 1*d.data[i][j];
-                }else{
-                    d.data[i][j] = 0.1*d.data[i][j];
-                }
-            } else if (a == SOFTMAX) {
-                d.data[i][j] = 1*d.data[i][j];
+                // TODO
+                d.data[i][j] = (x > 0) ? d.data[i][j] : 0;
+            } else if (a == LRELU){
+                // TODO
+                d.data[i][j] *= (x > 0) ? 1 : 0.1;
             }
         }
     }
@@ -87,9 +75,8 @@ matrix forward_layer(layer *l, matrix in)
 
 
     // TODO: fix this! multiply input by weights and apply activation function.
-    assert(l->w.rows == in.cols);
-
-    matrix out = matrix_mult_matrix(l->in, l->w);
+    // matrix out = make_matrix(in.rows, l->w.cols);
+    matrix out = matrix_mult_matrix(in, l->w);
     activate_matrix(out, l->activation);
 
 
@@ -104,31 +91,26 @@ matrix forward_layer(layer *l, matrix in)
 // returns: matrix, partial derivative of loss w.r.t. input to layer
 matrix backward_layer(layer *l, matrix delta)
 {
-    matrix t;
     // 1.4.1
     // delta is dL/dy
     // TODO: modify it in place to be dL/d(xw)
-
-    gradient_matrix(l->out,l->activation,delta);
-
+    gradient_matrix(l->out, l->activation, delta);
 
     // 1.4.2
     // TODO: then calculate dL/dw and save it in l->dw
     free_matrix(l->dw);
-    t = transpose_matrix(l->in);
-    assert(delta.rows == t.cols);
-    
-    l->dw = matrix_mult_matrix(t, delta);
-    free_matrix(t);
-
+    matrix transpose_input = transpose_matrix(l->in);
+    matrix dw = matrix_mult_matrix(transpose_input, delta); // replace this
+    l->dw = dw;
     
     // 1.4.3
     // TODO: finally, calculate dL/dx and return it.
-    t = transpose_matrix(l->w);
-    assert(t.rows == delta.cols);
-    matrix dx = matrix_mult_matrix(delta,t); // replace this
-    free_matrix(t);
-    
+    matrix transpose_weight = transpose_matrix(l->w);
+    matrix dx = matrix_mult_matrix(delta, transpose_weight); // replace this
+
+    free_matrix(transpose_weight);
+    free_matrix(transpose_input);
+
     return dx;
 }
 
@@ -139,21 +121,30 @@ matrix backward_layer(layer *l, matrix delta)
 // double decay: value for weight decay
 void update_layer(layer *l, double rate, double momentum, double decay)
 {
-    matrix m1, m2, tmp;
     // TODO:
     // Calculate Δw_t = dL/dw_t - λw_t + mΔw_{t-1}
     // save it to l->v
-    m1 = axpy_matrix(momentum, l->v, l->dw);
-    m2 = axpy_matrix(-decay, l->w, m1);
-
-    free_matrix(m1);
+    matrix temp_v = make_matrix(l->dw.rows, l->dw.cols);
+    for (int i = 0; i < l->dw.rows; i++) {
+        for (int j = 0; j < l->dw.cols; j++) {
+            temp_v.data[i][j] = l->dw.data[i][j] - decay * l->w.data[i][j] + momentum * l->v.data[i][j];
+        }
+    }
     free_matrix(l->v);
-    l->v = m2;
+    l->v = temp_v;
 
     // Update l->w
-    tmp = axpy_matrix(rate, m2, l->w);
+    matrix temp_w = make_matrix(l->w.rows, l->w.cols);
+    for (int i = 0; i < l->w.rows; i++) {
+        for (int j = 0; j < l->w.cols; j++) {
+            temp_w.data[i][j] = l->w.data[i][j] + rate * l->v.data[i][j];
+        }
+    }
     free_matrix(l->w);
-    l->w = tmp;
+    l->w = temp_w;
+
+    // Remember to free any intermediate results to avoid memory leaks
+
 }
 
 // Make a new layer for our model
@@ -278,7 +269,7 @@ void train_model(model m, data d, int batch, int iters, double rate, double mome
     for(e = 0; e < iters; ++e){
         data b = random_batch(d, batch);
         matrix p = forward_model(m, b.X);
-        //fprintf(stderr, "%06d: Loss: %f\n", e, cross_entropy_loss(b.y, p));
+        fprintf(stderr, "%06d: Loss: %f\n", e, cross_entropy_loss(b.y, p));
         matrix dL = axpy_matrix(-1, p, b.y); // partial derivative of loss dL/dy
         backward_model(m, dL);
         update_model(m, rate/batch, momentum, decay);
@@ -290,89 +281,32 @@ void train_model(model m, data d, int batch, int iters, double rate, double mome
 
 // Questions 
 //
-// 5.2.2.1 Why might we be interested in both training accuracy and testing
-// accuracy? What do these two numbers tell us about our current model?
+// 5.2.2.1 Why might we be interested in both training accuracy and testing accuracy? What do these two numbers tell us about our current model?
+// Both numbers are interesting since they give us an idea of whether or not the model is overfitting. If the train accuracy is high but the test accuracy is low
+// then we know that the model does really well for the data it is built upon, but is not great at prediction.
 //
-// >> If we have high training and low testing, we may be overfitting.
-
-// 5.2.2.2 Try varying the model parameter for learning rate to different powers
-// of 10 (i.e. 10^1, 10^0, 10^-1, 10^-2, 10^-3) and training the model.
-// What patterns do you see and how does the choice of learning rate affect both
-// the loss during training and the final model accuracy?
+// 5.2.2.2 Try varying the model parameter for learning rate to different powers of 10 (i.e. 10^1, 10^0, 10^-1, 10^-2, 10^-3) and training the model. What patterns do you see and how does the choice of learning rate affect both the loss during training and the final model accuracy?
+// It seems to be that both the training and test accuracy is highest when the learning rate is 0.1. For numbers smaller that, the accuracy quickly starts decreasing. For numbers bigger than 1, loss seems to be nan.
 //
-// >> 
-//    rate(10^x)   training   test 
-//         1          10%      10%
-//         0          85%      84%
-//        -1          92%      92%
-//        -2          90%      90% 
-//        -3          86%      87%
+// 5.2.2.3 Try varying the parameter for weight decay to different powers of 10: (10^0, 10^-1, 10^-2, 10^-3, 10^-4, 10^-5). How does weight decay affect the final model training and test accuracy?
+// Alterning the decay parameter doesn't seem to change the accuracy of the model on training and test data too much.
 //
-// It's pretty clear that smaller is better, but only to
-// a certain point (10^-1).
-
-// 5.2.2.3 Try varying the parameter for weight decay to different powers of 10:
-// (10^0, 10^-1, 10^-2, 10^-3, 10^-4, 10^-5). How does weight decay affect the
-// final model training and test accuracy?
+// 5.2.3.1 Currently the model uses a logistic activation for the first layer. Try using a the different activation functions we programmed. How well do they perform? What's best?
+// LRELU and RELU perform the best by a lot! LOGISTIC and LINEAR are second (pretty close to each other) while the SOFTMAX function is the worst.
 //
-// >>
-//    decay(10^x)   training   test 
-//         0          90%       90%
-//        -1          92%       91%
-//        -2          92%       92% 
-//        -3          92%       92%
-//        -4          92%       92%
-//        -5          92%       92%
+// 5.2.3.2 Using the same activation, find the best (power of 10) learning rate for your model. What is the training accuracy and testing accuracy?
+// I used RELU for my activation function. The best learning rate for my model was 0.1 with a training accuracy of 94.93% and a test accuracy of 94.43%.
 //
-// It looks like there are diminishing returns with weight decay (bump initially
-// but increasing less as decay gets smaller).
-
-// 5.2.3.1 Currently the model uses a logistic activation for the first layer.
-// Try using the different activation functions we programmed. How well do they
-// perform? What's best?
+// 5.2.3.3 Right now the regularization parameter `decay` is set to 0. Try adding some decay to your model. What happens, does it help? Why or why not may this be?
+// If decay is over 1, it hurts the accuracy of the model. 0.1 and less doesnt seem to affect the model much (just slight fluctuations). 
+// This could be because decay helps with the weight updates and tries to decrease overfitting. I'm not sure why a larger decay value negatively affects the model.
 //
-// >>
-//      activation   training    test
-//         LOG        92.006%   91.66%
-//         REL        92.071%   91.71%
-//        LREL        92.006%   91.66%
-//         SOF        92.006%   91.66%
+// 5.2.3.4 Modify your model so it has 3 layers instead of two. The layers should be `inputs -> 64`, `64 -> 32`, and `32 -> outputs`. Also modify your model to train for 3000 iterations instead of 1000. Look at the training and testing error for different values of decay (powers of 10, 10^-4 -> 10^0). Which is best? Why?
+// I used RELU, LRELU and SOFTMAX for my 3 layers with a learning rate of 0.1. The best accuracy I could get was 98% and 97% for training and test respectively with a decay of 0.01. 
 //
-// RELU is best.
-
-// 5.2.3.2 Using the same activation, find the best (power of 10) learning rate
-// for your model. What is the training accuracy and testing accuracy?
-//
-// >> Best rate was 10^-1, with 92/92.
-
-// 5.2.3.3 Right now the regularization parameter `decay` is set to 0. Try
-// adding some decay to your model. What happens, does it help? Why or why not
-// may this be?
-//
-// >> Setting the decay to 10^-2 helps a little bit. Probably avoids overfitting.
-
-// 5.2.3.4 Modify your model so it has 3 layers instead of two. The layers
-// should be `inputs -> 64`, `64 -> 32`, and `32 -> outputs`. Also modify
-// your model to train for 3000 iterations instead of 1000. Look at the training
-// and testing error for different values of decay (powers of 10, 10^-4 ->
-// 10^0). Which is best? Why?
-//
-// >>
-//    decay(10^x)   training   test 
-//         1           9%       10%
-//         0          89%       90%
-//        -1          92%       91%
-//        -2          92%       92% 
-//        -3          92%       92%
-//        -4          92%       92%
-//        -5          92%       92%
-//
-// Looks like the decay follows the same pattern as before. Returns start
-// getting smaller around 10^-2.
-
 // 5.3.2.1 How well does your network perform on the CIFAR dataset?
+// I could only get my network to perform with a test accuracy of about 30% using the above parameters. 
 //
-// >> Very poorly. Only 10%.
 
 
 
