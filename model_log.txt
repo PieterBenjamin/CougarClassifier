@@ -1,0 +1,359 @@
+(455) [shourj@lobster CougarClassifier]$ python resnet18.py 
+GPU
+Epoch 0/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.8097 Acc: 0.6948
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.3223 Acc: 0.8897
+
+Epoch 1/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.7126 Acc: 0.7380
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.2185 Acc: 0.9283
+
+Epoch 2/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.6154 Acc: 0.7925
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1552 Acc: 0.9485
+
+Epoch 3/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.5626 Acc: 0.7952
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1534 Acc: 0.9504
+
+Epoch 4/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.5393 Acc: 0.8034
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.2215 Acc: 0.9301
+
+Epoch 5/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.5112 Acc: 0.8197
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1441 Acc: 0.9614
+
+Epoch 6/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.4689 Acc: 0.8411
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1420 Acc: 0.9559
+
+Epoch 7/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.3946 Acc: 0.8610
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1109 Acc: 0.9706
+
+Epoch 8/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.3334 Acc: 0.8869
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1071 Acc: 0.9688
+
+Epoch 9/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.3473 Acc: 0.8815
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0973 Acc: 0.9743
+
+Epoch 10/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.3370 Acc: 0.8892
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0988 Acc: 0.9761
+
+Epoch 11/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.3154 Acc: 0.8974
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.1069 Acc: 0.9761
+
+Epoch 12/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.2826 Acc: 0.9060
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0979 Acc: 0.9779
+
+Epoch 13/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2826 Acc: 0.9124
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0873 Acc: 0.9779
+
+Epoch 14/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.2886 Acc: 0.9028
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0874 Acc: 0.9798
+
+Epoch 15/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2755 Acc: 0.9128
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0895 Acc: 0.9798
+
+Epoch 16/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.2879 Acc: 0.9114
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0823 Acc: 0.9779
+
+Epoch 17/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2944 Acc: 0.8951
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0947 Acc: 0.9798
+
+Epoch 18/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.3240 Acc: 0.8951
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0932 Acc: 0.9779
+
+Epoch 19/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2532 Acc: 0.9160
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0827 Acc: 0.9779
+
+Epoch 20/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.2792 Acc: 0.9024
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0878 Acc: 0.9779
+
+Epoch 21/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+train Loss: 0.3023 Acc: 0.9015
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0833 Acc: 0.9798
+
+Epoch 22/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2745 Acc: 0.9064
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0861 Acc: 0.9816
+
+Epoch 23/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2661 Acc: 0.9128
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0869 Acc: 0.9798
+
+Epoch 24/24
+----------
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/TiffImagePlugin.py:802: UserWarning: Corrupt EXIF data.  Expecting to read 2 bytes but only got 0. 
+  warnings.warn(str(msg))
+train Loss: 0.2537 Acc: 0.9169
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
+val Loss: 0.0834 Acc: 0.9779
+
+Training complete in 12m 31s
+Best val Acc: 0.981618
+/homes/iws/shourj/.virtualenvs/455/lib/python2.7/site-packages/PIL/Image.py:989: UserWarning: Palette images with Transparency expressed in bytes should be converted to RGBA images
+  "Palette images with Transparency expressed in bytes should be "
