@@ -206,10 +206,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
-            
-            if phase == 'val':
-                val_acc_history.append(epoch_acc)
-
         print()
 
     time_elapsed = time.time() - since
@@ -297,13 +293,13 @@ plt.clf()
 plt.plot(train_losses, label='Training loss')
 plt.plot(test_losses, label='Validation loss')
 plt.legend(frameon=False)
-plt.savefig("loss.png")
+plt.savefig('loss.png')
 
 plt.clf()
 plt.plot(train_losses, label='Training accuracy')
 plt.plot(test_losses, label='Validation accuracy')
 plt.legend(frameon=False)
-plt.savefig("accuracy.png")
+plt.savefig('accuracy.png')
 
 
 ######################################################################
