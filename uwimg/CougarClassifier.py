@@ -1,16 +1,11 @@
-import cv2
-import numpy
 from uwimg import *
 import os
 
 """
     Variable Initialization
 """
-# TODO - make this take a CL argument
 video_file = sys.argv[1]
-# Will store all frames in video
-
-
+THRESHOLD = 0.18
 # Getting all frame names
 frame_names = []
 frame_dir = os.path.dirname(os.path.realpath(__file__)) + "/frames/"
@@ -69,30 +64,38 @@ def detect_movement(frames, frame_movement, start):
         if (frame + start) >= num_files:
             break
         flow = optical_flow_images(frames[frame + 1], frames[frame], 15, 8)
-        frame_sum = 0
 
         # only look at dx, dy
-        for channel in [0, 1]:
-            for row in range(flow.h):
-                for col in range(flow.c):
-                    # we only care about magnitude
-                    frame_sum = max(frame_sum, abs(get_pixel(flow, col, row, channel)))
+        sum = 0
+        for row in range(flow.h):
+            for col in range(flow.c):
+                # we only care about magnitude (hence abs)
+                dx = get_pixel(flow, col, row, 0)
+                dy = get_pixel(flow, col, row, 1)
+
+                val = math.sqrt((dx * dx) + (dy * dy))
+                if val >= THRESHOLD:
+                    sum += val
+
         free_image(flow)
+        # Progress update
         if frame % 100 == 0:
-            draw_flow(frames[frame], flow, 8)
-            save_image(frames[frame], "lines%s" % (frame + start))
             print(frame)
-        frame_movement.append((frame_sum, frame + start))
+        frame_movement.append((sum, frame + start))
 
     print("done")
 
 
 def nth_most_movement(frame_movement, n):
     frame_movement.sort(key=lambda x: -x[0])
-
     print("The " + str(n) + " frame(s) with the highest movement are: ")
     for frame in range(n):
-        print("frames/frame" + str(frame_movement[frame]) + ".jpg")
+        tup = frame_movement[frame]
+        print("frames/frame%05d.jpg with a rank of %s" % (tup[1] + 1, tup[0]))
+
+        if tup[0] > 0:
+            os.rename((frame_dir + "frame%05d.jpg") % (tup[1] + 1),
+                      (os.path.dirname(os.path.realpath(__file__)) + "/../high_movement_frames/frame%05d.jpg") % (tup[1] + 1))
 
 
 """
@@ -116,7 +119,7 @@ def main():
         for frame in frames:
             free_image(frame)
 
-    nth_most_movement(frame_movement, 6)
+    nth_most_movement(frame_movement, 20)
 
 
 if __name__ == "__main__":

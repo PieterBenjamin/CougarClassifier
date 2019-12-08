@@ -3,7 +3,6 @@ cd "$(dirname "$0")"
 DIRECTORY="uwimg/frames/"
 
 # Script designed to simplify process of frame splitting/motion analysis
-
 # Splitting
 if [[ -f $1 ]]; then
   echo "Splitting " + pwd + "/$1 into frames"
@@ -21,9 +20,12 @@ if [[ -d ${DIRECTORY} ]]; then
     rm -rf ${DIRECTORY}
 fi
 
+# Output dir
+rm -rf "high_movement_frames"
+mkdir "high_movement_frames"
+
 mkdir uwimg/frames
 mv frame*.jpg uwimg/frames/
 
 # Motion analysis
 python uwimg/CougarClassifier.py $1
-
