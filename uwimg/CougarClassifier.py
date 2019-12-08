@@ -4,25 +4,28 @@ import os
 """
     Variable Initialization
 """
-video_file = sys.argv[1]
-THRESHOLD = 0.18
+VIDEO_FILE = sys.argv[1]
+FPS = int(sys.argv[2])
+THRESHOLD = 0.4
 # Getting all frame names
-frame_names = []
-frame_dir = os.path.dirname(os.path.realpath(__file__)) + "/frames/"
-for frame_name in os.listdir(frame_dir):
-    frame_names.append(frame_dir + frame_name)
-frame_names.sort()
+FRAME_NAMES = []
+FRAME_DIR = os.path.dirname(os.path.realpath(__file__)) + "/frames/"
+for frame_name in os.listdir(FRAME_DIR):
+    FRAME_NAMES.append(FRAME_DIR + frame_name)
+FRAME_NAMES.sort()
 
 print
 print
-print("analyzing video: " + video_file)
+print("analyzing video: " + VIDEO_FILE)
 print
 print
 
 
 # Number of files, and number to process at once
-num_files = len(frame_names)
-batch_size = 500
+NUM_FILES = len(FRAME_NAMES)
+BATCH_SIZE = 500
+# Make sure we don't look at way too much stuff
+STEP_SIZE = int(FPS/3) if (FPS >= 15) else 1
 
 """
     Helper Methods
@@ -36,15 +39,16 @@ def gather_frames(start, stop):
     :return: an array of frames,
     """
 
-    print("Gathering frames [" + str(start) + ", " + str(stop) + "] from " + frame_dir + " . . .")
+    print("Gathering frames [" + str(start) + ", " + str(stop) + "] from " + FRAME_DIR + " . . .")
 
     frames = []
 
-    for i in range(stop - start):
+    # Get a fresh batch
+    for index in range(start, stop, STEP_SIZE):
         # make sure we don't go overboard
-        if (i + start) >= num_files:
+        if index >= NUM_FILES:
             break
-        frames.append(load_image(frame_names[start + i]))
+        frames.append(load_image(FRAME_NAMES[index]))
 
     print("done")
     return frames
@@ -58,10 +62,10 @@ def detect_movement(frames, frame_movement, start):
              @frames (where the index is the first of the two frames with suspected movement).
     """
 
-    print("detecting movement in " + str(batch_size) + " frames . . .")
+    print("detecting movement in " + str(len(frames)) + " frames . . .")
 
     for frame in range(len(frames) - 1):
-        if (frame + start) >= num_files:
+        if (frame + start) >= NUM_FILES:
             break
         flow = optical_flow_images(frames[frame + 1], frames[frame], 15, 8)
 
@@ -84,8 +88,7 @@ def detect_movement(frames, frame_movement, start):
         frame_movement.append((sum, frame + start))
 
     print("done")
-
-
+    
 def nth_most_movement(frame_movement, n):
     frame_movement.sort(key=lambda x: -x[0])
     print("The " + str(n) + " frame(s) with the highest movement are: ")
@@ -94,8 +97,9 @@ def nth_most_movement(frame_movement, n):
         print("frames/frame%05d.jpg with a rank of %s" % (tup[1] + 1, tup[0]))
 
         if tup[0] > 0:
-            os.rename((frame_dir + "frame%05d.jpg") % (tup[1] + 1),
-                      (os.path.dirname(os.path.realpath(__file__)) + "/../high_movement_frames/frame%05d.jpg") % (tup[1] + 1))
+            os.rename((FRAME_DIR + "frame%05d.jpg") % (tup[1] + 1),
+                      (os.path.dirname(os.path.realpath(__file__)) + "/../high_movement_frames/frame%05d.jpg") % (
+                                  tup[1] + 1))
 
 
 """
@@ -105,9 +109,9 @@ def nth_most_movement(frame_movement, n):
 
 def main():
     frame_movement = []
-    for batch in range((num_files / batch_size) + 1):
-        start = batch * batch_size
-        stop = (batch + 1) * batch_size
+    for batch in range((NUM_FILES / BATCH_SIZE) + 1):
+        start = batch * BATCH_SIZE
+        stop = (batch + 1) * BATCH_SIZE
         # Read in the next batch of frames
         frames = gather_frames(start, stop)
 

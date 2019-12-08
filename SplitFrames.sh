@@ -28,4 +28,7 @@ mkdir uwimg/frames
 mv frame*.jpg uwimg/frames/
 
 # Motion analysis
-python uwimg/CougarClassifier.py $1
+fps=$(ffprobe -v error -select_streams v -of default=noprint_wrappers=1:nokey=1 -show_entries stream=r_frame_rate $1)
+fps=$(bc <<< ${fps})
+
+python uwimg/CougarClassifier.py $1 ${fps}
