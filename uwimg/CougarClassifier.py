@@ -55,13 +55,6 @@ def gather_frames(start, stop):
 
 
 def detect_movement(frames, frame_movement, start):
-    """
-
-    :param frames:
-    :return: an array of booleans, the same length as @frames with 1 at the indices that "high movement" was detected in
-             @frames (where the index is the first of the two frames with suspected movement).
-    """
-
     print("detecting movement in " + str(len(frames)) + " frames . . .")
 
     for frame in range(len(frames) - 1):
@@ -74,8 +67,8 @@ def detect_movement(frames, frame_movement, start):
         for row in range(flow.h):
             for col in range(flow.c):
                 # we only care about magnitude (hence abs)
-                dx = get_pixel(flow, col, row, 0)
-                dy = get_pixel(flow, col, row, 1)
+                dx = 8*get_pixel(flow, col, row, 0)
+                dy = 8*get_pixel(flow, col, row, 1)
 
                 val = math.sqrt((dx * dx) + (dy * dy))
                 if val >= THRESHOLD:
@@ -88,18 +81,62 @@ def detect_movement(frames, frame_movement, start):
         frame_movement.append((sum, frame + start))
 
     print("done")
-    
+
+
+def zero_image(zero_im, i, j, stride):
+
+    for y in range(max(0, j - stride), min(zero_im.h, j + stride), 1):
+        for x in range(max(0, i - stride), min(zero_im.w, i + stride), 1):
+            set_pixel(zero_im, x, y, 0, 0)
+            if zero_im.c > 1:
+                set_pixel(zero_im, x, y, 1, 0)
+                set_pixel(zero_im, x, y, 2, 0)
+
+
+def hide_static_content(index):
+    im1 = load_image((FRAME_DIR + "frame%05d.jpg") % index)
+    im2 = load_image((FRAME_DIR + "frame%05d.jpg") % (index + 1))
+
+    flow = optical_flow_images(im1, im2, 15, 8)
+    free_image(im2)
+
+    stride = im1.w / flow.w
+    for j in range((stride-1)/2, im1.h, stride):
+        for i in range((stride-1)/2, im1.w, stride):
+            dx = 8*get_pixel(flow, i/stride, j/stride, 0);
+            dy = 8*get_pixel(flow, i/stride, j/stride, 1);
+            if abs(dx) > im1.w:
+                dx = 0
+            if abs(dy) > im1.h:
+                dy = 0
+
+            if math.sqrt((dx * dx) + (dy * dy)) < THRESHOLD:
+                zero_image(im1, i, j, stride)
+
+    free_image(flow)
+    return im1
+
+
 def nth_most_movement(frame_movement, n):
+    # Change to true to enable automatic bounding boxes
+    AUTO_BOUNDING_BOX = False
+
     frame_movement.sort(key=lambda x: -x[0])
     print("The " + str(n) + " frame(s) with the highest movement are: ")
     for frame in range(n):
         tup = frame_movement[frame]
         print("frames/frame%05d.jpg with a rank of %s" % (tup[1] + 1, tup[0]))
 
-        if tup[0] > 0:
+        if AUTO_BOUNDING_BOX:
+            if tup[0] > 0 and tup[1] < NUM_FILES:
+                final_im = hide_static_content(tup[1])
+                save_image(final_im, os.path.dirname(os.path.realpath(__file__)) +
+                           "/../high_movement_frames/frame%05d.jpg" % (tup[1] + 1))
+                free_image(final_im)
+        else:
             os.rename((FRAME_DIR + "frame%05d.jpg") % (tup[1] + 1),
                       (os.path.dirname(os.path.realpath(__file__)) + "/../high_movement_frames/frame%05d.jpg") % (
-                                  tup[1] + 1))
+                                        tup[1] + 1))
 
 
 """
