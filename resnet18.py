@@ -42,7 +42,7 @@ import time
 import os
 import copy
 
-plt.ion()   # interactive mode
+# plt.ion()   # interactive mode
 
 ######################################################################
 # Load Data
@@ -124,7 +124,7 @@ inputs, classes = next(iter(dataloaders['train']))
 # Make a grid from batch
 out = torchvision.utils.make_grid(inputs)
 
-imshow(out, title=[class_names[x] for x in classes])
+# imshow(out, title=[class_names[x] for x in classes])
 
 
 ######################################################################
@@ -143,7 +143,8 @@ imshow(out, title=[class_names[x] for x in classes])
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
 
-    val_acc_history = []
+    # val_acc_history = []
+    train_losses, test_losses, train_accuracy, test_accuracy = [], [], [], []
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -191,6 +192,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects.double() / dataset_sizes[phase]
+            if phase == 'train':
+                train_accuracy.append(epoch_acc)
+                train_losses.append(epoch_loss)
+            else:
+                test_accuracy.append(epoch_acc)
+                test_losses.append(epoch_loss)
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
@@ -199,10 +206,6 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
-            
-            if phase == 'val':
-                val_acc_history.append(epoch_acc)
-
         print()
 
     time_elapsed = time.time() - since
@@ -214,7 +217,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     model.load_state_dict(best_model_wts)
 
     torch.save(model.state_dict(), "./model.pt")
-    return model, val_acc_history
+    return model, train_accuracy, train_losses, test_accuracy, test_losses
 
 
 ######################################################################
@@ -283,14 +286,26 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 # minute.
 #
 
-model_ft, history1 = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=1)
+model_ft, train_accuracy, train_losses, test_accuracy, test_losses = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
+                       num_epochs=25)
+
+plt.clf()
+plt.plot(train_losses, label='Training loss')
+plt.plot(test_losses, label='Validation loss')
+plt.legend(frameon=False)
+plt.savefig('loss.png')
+
+plt.clf()
+plt.plot(train_losses, label='Training accuracy')
+plt.plot(test_losses, label='Validation accuracy')
+plt.legend(frameon=False)
+plt.savefig('accuracy.png')
 
 
 ######################################################################
 #
 
-visualize_model(model_ft)
+# visualize_model(model_ft)
 
 
 ######################################################################
@@ -336,27 +351,27 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_conv, step_size=7, gamma=0.1)
 # network. However, forward does need to be computed.
 #
 
-model_conv, history2 = train_model(model_conv, criterion, optimizer_conv,
-                         exp_lr_scheduler, num_epochs=1)
+# model_conv, history2 = train_model(model_conv, criterion, optimizer_conv,
+#                          exp_lr_scheduler, num_epochs=1)
 
 ######################################################################
 #
 
-ohist = []
-shist = []
+# ohist = []
+# shist = []
 
-ohist = [h.cpu().numpy() for h in history1]
-shist = [h.cpu().numpy() for h in history2]
+# ohist = [h.cpu().numpy() for h in history1]
+# shist = [h.cpu().numpy() for h in history2]
 
-plt.title("Validation Accuracy vs. Number of Training Epochs")
-plt.xlabel("Training Epochs")
-plt.ylabel("Validation Accuracy")
-plt.plot(range(1,1+1),ohist,label="Pretrained")
-plt.plot(range(1,1+1),shist,label="Scratch")
-plt.ylim((0,1.))
-plt.xticks(np.arange(1, 1+1, 1.0))
-plt.legend()
-plt.show()
+# plt.title("Validation Accuracy vs. Number of Training Epochs")
+# plt.xlabel("Training Epochs")
+# plt.ylabel("Validation Accuracy")
+# plt.plot(range(1,1+1),ohist,label="Pretrained")
+# plt.plot(range(1,1+1),shist,label="Scratch")
+# plt.ylim((0,1.))
+# plt.xticks(np.arange(1, 1+1, 1.0))
+# plt.legend()
+# plt.show()
 
 # visualize_model(model_conv)
 
