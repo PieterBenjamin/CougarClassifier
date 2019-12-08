@@ -143,7 +143,8 @@ out = torchvision.utils.make_grid(inputs)
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()
 
-    val_acc_history = []
+    # val_acc_history = []
+    train_losses, test_losses, train_accuracy, test_accuracy = [], [], [], []
 
     best_model_wts = copy.deepcopy(model.state_dict())
     best_acc = 0.0
@@ -191,6 +192,12 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
             epoch_loss = running_loss / dataset_sizes[phase]
             epoch_acc = running_corrects.double() / dataset_sizes[phase]
+            if phase == 'train':
+                train_accuracy.append(epoch_acc)
+                train_losses.append(epoch_loss)
+            else:
+                test_accuracy.append(epoch_acc)
+                test_losses.append(epoch_loss)
 
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                 phase, epoch_loss, epoch_acc))
@@ -214,7 +221,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     model.load_state_dict(best_model_wts)
 
     torch.save(model.state_dict(), "./model.pt")
-    return model, val_acc_history
+    return model, train_accuracy, train_losses, test_accuracy, test_losses
 
 
 ######################################################################
@@ -283,8 +290,20 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 # minute.
 #
 
-model_ft, history1 = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
+model_ft, train_accuracy, train_losses, test_accuracy, test_losses = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,
                        num_epochs=25)
+
+plt.clf()
+plt.plot(train_losses, label='Training loss')
+plt.plot(test_losses, label='Validation loss')
+plt.legend(frameon=False)
+plt.savefig("loss.png")
+
+plt.clf()
+plt.plot(train_losses, label='Training accuracy')
+plt.plot(test_losses, label='Validation accuracy')
+plt.legend(frameon=False)
+plt.savefig("accuracy.png")
 
 
 ######################################################################
