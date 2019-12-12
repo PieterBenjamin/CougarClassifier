@@ -14,15 +14,10 @@ Quoting these notes,
     contains 1.2 million images with 1000 categories), and then use the
     ConvNet either as an initialization or a fixed feature extractor for
     the task of interest.
-These two major transfer learning scenarios look as follows:
--  **Finetuning the convnet**: Instead of random initializaion, we
-   initialize the network with a pretrained network, like the one that is
-   trained on imagenet 1000 dataset. Rest of the training looks as
-   usual.
--  **ConvNet as fixed feature extractor**: Here, we will freeze the weights
-   for all of the network except that of the final fully connected
-   layer. This last fully connected layer is replaced with a new one
-   with random weights and only this layer is trained.
+**Finetuning the convnet**: Instead of random initializaion, we
+initialize the network with a pretrained network, like the one that is
+trained on imagenet 1000 dataset. Rest of the training looks as
+usual.
 """
 # License: BSD
 # Author: Sasank Chilamkurthy
@@ -261,7 +256,7 @@ def visualize_model(model, num_images=6):
 #
 
 model_ft = models.resnet18(pretrained=True)
-model_ft.cuda()
+# model_ft.cuda()
 
 num_ftrs = model_ft.fc.in_features
 # Here the size of each output sample is set to 2.
@@ -300,88 +295,3 @@ plt.plot(train_losses, label='Training accuracy')
 plt.plot(test_losses, label='Validation accuracy')
 plt.legend(frameon=False)
 plt.savefig('accuracy.png')
-
-
-######################################################################
-#
-
-# visualize_model(model_ft)
-
-
-######################################################################
-# ConvNet as fixed feature extractor
-# ----------------------------------
-#
-# Here, we need to freeze all the network except the final layer. We need
-# to set ``requires_grad == False`` to freeze the parameters so that the
-# gradients are not computed in ``backward()``.
-#
-# You can read more about this in the documentation
-# `here <https://pytorch.org/docs/notes/autograd.html#excluding-subgraphs-from-backward>`__.
-#
-
-model_conv = torchvision.models.resnet18(pretrained=True)
-model_conv.cuda()
-
-for param in model_conv.parameters():
-    param.requires_grad = False
-
-# Parameters of newly constructed modules have requires_grad=True by default
-num_ftrs = model_conv.fc.in_features
-model_conv.fc = nn.Linear(num_ftrs, len(class_names))
-
-model_conv = model_conv.to(device)
-
-criterion = nn.CrossEntropyLoss()
-
-# Observe that only parameters of final layer are being optimized as
-# opposed to before.
-optimizer_conv = optim.SGD(model_conv.fc.parameters(), lr=0.001, momentum=0.9)
-
-# Decay LR by a factor of 0.1 every 7 epochs
-exp_lr_scheduler = lr_scheduler.StepLR(optimizer_conv, step_size=7, gamma=0.1)
-
-
-######################################################################
-# Train and evaluate
-# ^^^^^^^^^^^^^^^^^^
-#
-# On CPU this will take about half the time compared to previous scenario.
-# This is expected as gradients don't need to be computed for most of the
-# network. However, forward does need to be computed.
-#
-
-# model_conv, history2 = train_model(model_conv, criterion, optimizer_conv,
-#                          exp_lr_scheduler, num_epochs=1)
-
-######################################################################
-#
-
-# ohist = []
-# shist = []
-
-# ohist = [h.cpu().numpy() for h in history1]
-# shist = [h.cpu().numpy() for h in history2]
-
-# plt.title("Validation Accuracy vs. Number of Training Epochs")
-# plt.xlabel("Training Epochs")
-# plt.ylabel("Validation Accuracy")
-# plt.plot(range(1,1+1),ohist,label="Pretrained")
-# plt.plot(range(1,1+1),shist,label="Scratch")
-# plt.ylim((0,1.))
-# plt.xticks(np.arange(1, 1+1, 1.0))
-# plt.legend()
-# plt.show()
-
-# visualize_model(model_conv)
-
-# plt.ioff()
-# plt.show()
-
-######################################################################
-# Further Learning
-# -----------------
-#
-# If you would like to learn more about the applications of transfer learning,
-# checkout our `Quantized Transfer Learning for Computer Vision Tutorial <https://pytorch.org/tutorials/intermediate/quantized_transfer_learning.html>`_.
-#
